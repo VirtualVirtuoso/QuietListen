@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "include": "./src/main/ts/**/*.ts"
+  }
+}

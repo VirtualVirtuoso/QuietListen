@@ -16,11 +16,16 @@
     "bootstrap": "^4.2.1",
     "browserify": "^16.2.3",
     "font-awesome": "4.7.0",
+    "gulp-cli": "^2.0.1",
+    "gulp-uglify-es": "^1.0.4",
     "html5-boilerplate": "0.0.1",
-    "ng-dialog": "1.4.0"
+    "jquery": "^3.3.1",
+    "ng-dialog": "1.4.0",
+    "vinyl-buffer": "^1.0.1"
   },
   "devDependencies": {
     "angular-mocks": "1.7.5",
+    "babelify": "^10.0.0",
     "cpx": "1.5.0",
     "gulp": "4.0.0",
     "gulp-clean": "0.4.0",
@@ -40,7 +45,8 @@
     "protractor": "5.4.1",
     "tsify": "4.0.1",
     "tslint": "5.12.1",
-    "typescript": "3.2.4"
+    "typescript": "3.2.4",
+    "vinyl-source-stream": "^2.0.0"
   },
   "scripts": {
     "postinstall": "npm run copy-libs",

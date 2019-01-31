@@ -1,30 +1,31 @@
 'use strict';
 
-const gulp       = require('gulp'),
-      glob       = require('glob'),
-      concat     = require('gulp-concat'),
-      less       = require('gulp-less'),
-      browserify = require('browserify'),
-      minify     = require('gulp-minify-css'),
-      buffer     = require('vinyl-buffer'),
-      uglify     = require('gulp-uglify-es').default,
-      tsify      = require('tsify'),
-      path       = require('path'),
-      connect    = require('gulp-connect'),
-      clean      = require('gulp-clean'),
-      sequence   = require('gulp-sequence'),
-      tslint     = require('gulp-tslint');
+const gulp         = require('gulp'),
+      glob         = require('glob'),
+      concat       = require('gulp-concat'),
+      source       = require('vinyl-source-stream'),
+      less         = require('gulp-less'),
+      browserify   = require('browserify'),
+      minify       = require('gulp-minify-css'),
+      buffer       = require('vinyl-buffer'),
+      uglify       = require('gulp-uglify-es').default,
+      tsify        = require('tsify'),
+      path         = require('path'),
+      connect      = require('gulp-connect'),
+      clean        = require('gulp-clean'),
+      gulpSequence = require('gulp-sequence'),
+      tslint       = require('gulp-tslint');
 
 // 'gulp' task
-gulp.task('default', (callback) => {
-    sequence(
+gulp.task('default', (cb) => {
+    gulpSequence(
         'clean',
         'less',
         'vendor:js',
         'vendor:css',
         'templates',
         'compile'
-    )(callback)
+    )(cb)
 });
 
 // Removes built files before a new build
@@ -50,7 +51,7 @@ gulp.task('less', () => {
 // Compiles vendor files into one uglified vendor file
 gulp.task('vendor:js', () => {
    return gulp.src([
-       './node_modules/angular/angular/angular.min.js',
+       './node_modules/angular/angular.min.js',
        './node_modules/@uirouter/core/_bundles/ui-router-core.min.js',
        './node_modules/@uirouter/angularjs/release/angular-ui-router.min.js',
        './node_modules/@uirouter/angularjs/release/stateEvents.min.js',
@@ -68,11 +69,11 @@ gulp.task('vendor:js', () => {
 gulp.task('vendor:fonts', () => {
     return gulp.src([
         './node_modules/font-awesome/fonts/FontAwesome.otf',
-        './node_modules/font-awesome/fonts/font-awesome-webfont.eot',
-        './node_modules/font-awesome/fonts/font-awesome-webfont.svg',
-        './node_modules/font-awesome/fonts/font-awesome-webfont.ttf',
-        './node_modules/font-awesome/fonts/font-awesome-webfont.woff',
-        './node_modules/font-awesome/fonts/font-awesome-webfont.woff2',
+        './node_modules/font-awesome/fonts/fontawesome-webfont.eot',
+        './node_modules/font-awesome/fonts/fontawesome-webfont.svg',
+        './node_modules/font-awesome/fonts/fontawesome-webfont.ttf',
+        './node_modules/font-awesome/fonts/fontawesome-webfont.woff',
+        './node_modules/font-awesome/fonts/fontawesome-webfont.woff2',
     ])
         .pipe(gulp.dest('./app/resources/fonts'))
 });
@@ -105,6 +106,7 @@ gulp.task('compile', () => {
         entries: files
     })
         .plugin(tsify)
+        .bundle()
         .pipe(source('./site-bundle.js'))
         .pipe(buffer())
         .pipe(concat('quietlisten.js'))
@@ -122,8 +124,8 @@ gulp.task('watch', () => {
 });
 
 // Task to set up the dev environment
-gulp.task('dev', (callback) => {
-    sequence(
+gulp.task('dev', (cb) => {
+    gulpSequence(
         'clean',
         'less',
         'vendor:js',
@@ -132,7 +134,7 @@ gulp.task('dev', (callback) => {
         'compile',
         'dev:connect',
         'watch'
-    )(callback)
+    )(cb)
 });
 
 // Sets up the livereload server

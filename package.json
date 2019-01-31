@@ -13,6 +13,8 @@
     "angular": "1.7.6",
     "angular-loader": "1.7.6",
     "angular-route": "1.7.6",
+    "bootstrap": "^4.2.1",
+    "browserify": "^16.2.3",
     "font-awesome": "4.7.0",
     "html5-boilerplate": "0.0.1",
     "ng-dialog": "1.4.0"

@@ -9,24 +9,12 @@ const gulp         = require('gulp'),
       minify       = require('gulp-minify-css'),
       buffer       = require('vinyl-buffer'),
       uglify       = require('gulp-uglify-es').default,
+      tmpCache     = require('gulp-angular-templatecache'),
       tsify        = require('tsify'),
       path         = require('path'),
       connect      = require('gulp-connect'),
       clean        = require('gulp-clean'),
-      gulpSequence = require('gulp-sequence'),
       tslint       = require('gulp-tslint');
-
-// 'gulp' task
-gulp.task('default', (cb) => {
-    gulpSequence(
-        'clean',
-        'less',
-        'vendor:js',
-        'vendor:css',
-        'templates',
-        'compile'
-    )(cb)
-});
 
 // Removes built files before a new build
 gulp.task('clean', () => {
@@ -34,7 +22,7 @@ gulp.task('clean', () => {
         './app/resources/css',
         './app/resources/html',
         './app/resources/js'
-    ], {read: false})
+    ], {read: false, allowEmpty: true})
         .pipe(clean());
 });
 
@@ -93,7 +81,13 @@ gulp.task('vendor:css', () => {
 
 // Compile the template files into one bundled production file
 gulp.task('templates', () => {
-
+    return gulp.src('./src/main/html/**/*.html')
+        .pipe(tmpCache({
+            root: 'appTemplates',
+            module: 'app',
+            filename: 'app.templates.ts'
+        }))
+        .pipe(gulp.dest('./src/main/ts'));
 });
 
 // Compile without preserving source maps
@@ -150,5 +144,15 @@ gulp.task('dev:tslint', () => {
         .pipe(tslint({formatter: verbose}))
         .pipe(tslint.report());
 });
+
+// 'gulp' task
+gulp.task('default', gulp.series(
+    'clean',
+    'less',
+    'vendor:js',
+    'vendor:css',
+    'templates',
+    'compile'
+));
 
 

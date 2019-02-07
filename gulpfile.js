@@ -46,7 +46,8 @@ gulp.task('vendor:js', () => {
        './node_modules/@uirouter/sticky-states/_bundles/ui-router-sticky-states.js',
        './node_modules/jquery/dist/jquery.min.js',
        './node_modules/bootstrap/dist/js/bootstrap.min.js',
-       './node_modules/ng-dialog/js/ngDialog.min.js'
+       './node_modules/ng-dialog/js/ngDialog.min.js',
+       './node_modules/modernizr/src/Modernizr.js'
    ])
        .pipe(concat('vendor-scripts.js'))
        .pipe(uglify({mangle: false}))

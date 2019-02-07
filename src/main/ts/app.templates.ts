@@ -1,0 +1,1 @@
+angular.module('app').run(['$templateCache', function($templateCache) {$templateCache.put('appTemplates/layouts/index.html','<!DOCTYPE html>\r\n<html lang="en">\r\n<head>\r\n    <meta charset="UTF-8">\r\n    <title>Hola!</title>\r\n</head>\r\n<body>\r\n    This is being served at the root.\r\n    \u304A\u697D\u3057\u307F\u304F\u3060\u3055\u3044\r\n</body>\r\n</html>');}]);

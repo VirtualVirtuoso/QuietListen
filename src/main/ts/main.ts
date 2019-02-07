@@ -1,14 +1,11 @@
-'use strict';
+import angular = require('angular');
+import { routes } from './routes';
 
-// Declare app level module which depends on views, and core components
-angular.module('myApp', [
+export let app = angular.module('app', [
     'ngRoute',
-    'myApp.view1',
-    'myApp.view2',
-    'myApp.version'
-]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-    $locationProvider.hashPrefix('!');
+    'ui.router',
+    'ng',
+    'ngDialog'
+]);
 
-    $routeProvider.otherwise({redirectTo: '/view1'});
-}]);
+app.config(routes);

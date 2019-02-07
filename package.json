@@ -20,6 +20,7 @@
     "gulp-uglify-es": "^1.0.4",
     "html5-boilerplate": "0.0.1",
     "jquery": "^3.3.1",
+    "modernizr": "^3.6.0",
     "ng-dialog": "1.4.0",
     "vinyl-buffer": "^1.0.1"
   },
